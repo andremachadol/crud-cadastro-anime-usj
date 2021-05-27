@@ -12,8 +12,12 @@
 
     <ul>
 
-        <li>Nome - Gênero - Episódios</li>
+        <li th:each="anime: ${lista}" >  
+            <a th:href="@{/detalhes/{id}(id=${anime.id})}" th:text="${anime.nome}">NOME</a>  
+            <a th:href="@{/editar/{id}(id=${anime.id})}">Editar</a>
+            <a th:href="@{/deletar/{id}(id=${anime.id})}">Deletar</a>
 
+        </li>
     </ul>
     <a href="/cadastro"> Novo Anime</a>
     
