@@ -50,17 +50,16 @@ public class AnimeController {
 
     @GetMapping(value="/cadastro")
     public ModelAndView getCadastro() {
-        
+        Anime anime = new Anime();
         ModelAndView modelAndView = new ModelAndView("cadastro");
+        
+        modelAndView.addObject("anime", anime);
         return modelAndView;
     }
     
     @PostMapping(value="/adicionar")
-    public ModelAndView postAdicionar(@RequestParam String nome, @RequestParam  String genero, @RequestParam String eps){
-        Anime anime = new Anime();
-        anime.setNome(nome);
-        anime.setGenero(genero);
-        anime.setEps(eps);
+    public ModelAndView postAdicionar(Anime anime){
+        
         
         animeRepository.save(anime);
         ModelAndView modelAndView = new ModelAndView("detalhes");
@@ -77,6 +76,16 @@ public class AnimeController {
         return "redirect:/";
        
         
+    }
+    
+    @GetMapping(value="/editar/{id}")
+    public  ModelAndView getEditar(@PathVariable Long id) {
+        Anime anime = new Anime();
+        anime= animeRepository.findById(id).get();
+        
+        ModelAndView modelAndView = new ModelAndView("cadastro");
+        modelAndView.addObject("anime", anime);
+        return  modelAndView;
     }
     
 }
